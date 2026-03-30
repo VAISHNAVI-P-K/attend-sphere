@@ -53,6 +53,14 @@ export default function EventsPage() {
   const filterEvents = () => {
     let filtered = events;
 
+    // Filter by date - only show current and upcoming events
+    const now = new Date();
+    filtered = filtered.filter(event => {
+      if (!event.eventDate) return false;
+      const eventDate = new Date(event.eventDate);
+      return eventDate >= now;
+    });
+
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(event => event.eventCategory === selectedCategory);
     }
@@ -64,6 +72,13 @@ export default function EventsPage() {
         event.eventLocation?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
+
+    // Sort by date - earliest first
+    filtered.sort((a, b) => {
+      const dateA = new Date(a.eventDate || 0).getTime();
+      const dateB = new Date(b.eventDate || 0).getTime();
+      return dateA - dateB;
+    });
 
     setFilteredEvents(filtered);
   };

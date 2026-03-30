@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, ArrowRight, Activity, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, ArrowRight, Activity, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Image } from '@/components/ui/image';
@@ -13,8 +13,31 @@ export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
-  const { actions } = useMember();
+  const { actions, member } = useMember();
+
+  // Handle redirect after successful sign in
+  useEffect(() => {
+    if (success && member) {
+      const timer = setTimeout(() => {
+        // Redirect based on role stored during registration
+        const role = localStorage.getItem('userRole') || 'student';
+        switch (role) {
+          case 'faculty':
+            navigate('/dashboard');
+            break;
+          case 'admin':
+            navigate('/analytics');
+            break;
+          case 'student':
+          default:
+            navigate('/events');
+        }
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [success, member, navigate]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +53,7 @@ export default function SignInPage() {
       }
 
       // Use Wix authentication - this will redirect to auth and come back
+      setSuccess(true);
       actions.login();
     } catch (err) {
       setError('Failed to sign in. Please try again.');
@@ -196,6 +220,21 @@ export default function SignInPage() {
                   </div>
                 )}
 
+                {/* Success Message */}
+                {success && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-4 bg-accent-cyan/10 border border-accent-cyan/30 rounded-xl flex items-center gap-3"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-accent-cyan flex-shrink-0" />
+                    <div>
+                      <p className="font-paragraph text-sm font-semibold text-accent-cyan">Sign In Successful!</p>
+                      <p className="font-paragraph text-xs text-muted-text">Redirecting to your personalized dashboard...</p>
+                    </div>
+                  </motion.div>
+                )}
+
                 {/* Remember & Forgot */}
                 <div className="flex items-center justify-between">
                   <label className="flex items-center gap-2 cursor-pointer">
@@ -210,10 +249,10 @@ export default function SignInPage() {
                 {/* Sign In Button */}
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoading || success}
                   className="w-full bg-gradient-to-r from-accent-cyan to-accent-purple text-black font-heading font-bold py-6 rounded-xl hover:opacity-90 transition-opacity text-lg shadow-[0_0_20px_rgba(0,255,255,0.3)] disabled:opacity-50"
                 >
-                  {isLoading ? 'Signing In...' : 'Sign In'}
+                  {success ? 'Signed In!' : isLoading ? 'Signing In...' : 'Sign In'}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
 

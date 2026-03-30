@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Building2, ArrowRight, Activity, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
@@ -21,9 +21,32 @@ export default function RegisterPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const navigate = useNavigate();
-  const { actions } = useMember();
+  const { actions, member } = useMember();
+
+  // Handle redirect after successful registration
+  useEffect(() => {
+    if (success && member) {
+      const timer = setTimeout(() => {
+        // Redirect based on role
+        const role = localStorage.getItem('userRole') || 'student';
+        switch (role) {
+          case 'faculty':
+            navigate('/dashboard');
+            break;
+          case 'admin':
+            navigate('/analytics');
+            break;
+          case 'student':
+          default:
+            navigate('/events');
+        }
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [success, member, navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -58,8 +81,13 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
+      // Store role for post-registration redirect
+      localStorage.setItem('userRole', formData.role);
+      localStorage.setItem('userInstitution', formData.institution);
+      
       // Use Wix authentication for registration
       // This will redirect to auth and come back
+      setSuccess(true);
       actions.login();
     } catch (err) {
       setError('Failed to register. Please try again.');
@@ -339,6 +367,21 @@ export default function RegisterPage() {
                   </div>
                 )}
 
+                {/* Success Message */}
+                {success && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-4 bg-accent-cyan/10 border border-accent-cyan/30 rounded-xl flex items-center gap-3"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-accent-cyan flex-shrink-0" />
+                    <div>
+                      <p className="font-paragraph text-sm font-semibold text-accent-cyan">Account Created Successfully!</p>
+                      <p className="font-paragraph text-xs text-muted-text">Redirecting to your personalized dashboard...</p>
+                    </div>
+                  </motion.div>
+                )}
+
                 {/* Terms Checkbox */}
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
@@ -362,10 +405,10 @@ export default function RegisterPage() {
                 {/* Register Button */}
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoading || success}
                   className="w-full bg-gradient-to-r from-accent-cyan to-accent-purple text-black font-heading font-bold py-6 rounded-xl hover:opacity-90 transition-opacity text-lg shadow-[0_0_20px_rgba(0,255,255,0.3)] disabled:opacity-50"
                 >
-                  {isLoading ? 'Creating Account...' : 'Create Account'}
+                  {success ? 'Account Created!' : isLoading ? 'Creating Account...' : 'Create Account'}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </form>

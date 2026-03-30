@@ -13,6 +13,8 @@ import MarkAttendancePage from '@/components/pages/MarkAttendancePage';
 import AnalyticsPage from '@/components/pages/AnalyticsPage';
 import StudentProfilePage from '@/components/pages/StudentProfilePage';
 import SystemPerformancePage from '@/components/pages/SystemPerformancePage';
+import SignInPage from '@/components/pages/SignInPage';
+import RegisterPage from '@/components/pages/RegisterPage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -111,6 +113,20 @@ const router = createBrowserRouter([
         element: <ContactPage />,
         routeMetadata: {
           pageIdentifier: 'contact',
+        },
+      },
+      {
+        path: "signin",
+        element: <SignInPage />,
+        routeMetadata: {
+          pageIdentifier: 'signin',
+        },
+      },
+      {
+        path: "register",
+        element: <RegisterPage />,
+        routeMetadata: {
+          pageIdentifier: 'register',
         },
       },
       {

@@ -84,12 +84,23 @@ export default function Header() {
                 </Button>
               </>
             ) : (
-              <Button
-                onClick={actions.login}
-                className="bg-accent-cyan text-primary-foreground hover:bg-accent-cyan/90 font-paragraph font-semibold rounded-xl"
-              >
-                Sign In
-              </Button>
+              <div className="flex items-center gap-3">
+                <Link to="/signin">
+                  <Button
+                    variant="outline"
+                    className="border-accent-cyan text-accent-cyan hover:bg-accent-cyan/10 font-paragraph rounded-xl"
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button
+                    className="bg-accent-cyan text-primary-foreground hover:bg-accent-cyan/90 font-paragraph font-semibold rounded-xl"
+                  >
+                    Register
+                  </Button>
+                </Link>
+              </div>
             )}
           </div>
 
@@ -149,15 +160,23 @@ export default function Header() {
                       </Button>
                     </>
                   ) : (
-                    <Button
-                      onClick={() => {
-                        actions.login();
-                        setIsMenuOpen(false);
-                      }}
-                      className="w-full bg-accent-cyan text-primary-foreground hover:bg-accent-cyan/90 font-paragraph font-semibold rounded-xl"
-                    >
-                      Sign In
-                    </Button>
+                    <div className="flex flex-col gap-3 w-full">
+                      <Link to="/signin" onClick={() => setIsMenuOpen(false)}>
+                        <Button
+                          variant="outline"
+                          className="w-full border-accent-cyan text-accent-cyan hover:bg-accent-cyan/10 font-paragraph rounded-xl"
+                        >
+                          Sign In
+                        </Button>
+                      </Link>
+                      <Link to="/register" onClick={() => setIsMenuOpen(false)}>
+                        <Button
+                          className="w-full bg-accent-cyan text-primary-foreground hover:bg-accent-cyan/90 font-paragraph font-semibold rounded-xl"
+                        >
+                          Register
+                        </Button>
+                      </Link>
+                    </div>
                   )}
                 </div>
               </nav>

@@ -119,7 +119,7 @@ export default function HomePage() {
                 </p>
                 
                 <div className="flex flex-wrap gap-6">
-                  <Link to="/dashboard">
+                  <Link to="/register">
                     <Button className="group relative overflow-hidden bg-accent-cyan text-primary-foreground hover:bg-accent-cyan/90 font-heading font-bold px-10 py-7 text-lg rounded-none clip-hex transition-all duration-300 hover:scale-105">
                       <span className="relative z-10 flex items-center gap-2">
                         Initialize Core <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

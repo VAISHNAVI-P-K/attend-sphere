@@ -17,11 +17,13 @@ export default function EventsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [dateFilter, setDateFilter] = useState<'upcoming' | 'past' | 'all'>('upcoming');
   const [hasNext, setHasNext] = useState(false);
   const [skip, setSkip] = useState(0);
   const { currency } = useCurrency();
 
   const categories = ['all', 'Academic', 'Workshop', 'Seminar', 'Conference', 'Social'];
+  const dateFilters = ['upcoming', 'past', 'all'] as const;
 
   useEffect(() => {
     loadEvents();
@@ -29,7 +31,7 @@ export default function EventsPage() {
 
   useEffect(() => {
     filterEvents();
-  }, [events, searchTerm, selectedCategory]);
+  }, [events, searchTerm, selectedCategory, dateFilter]);
 
   const loadEvents = async () => {
     try {
@@ -52,14 +54,23 @@ export default function EventsPage() {
 
   const filterEvents = () => {
     let filtered = events;
-
-    // Filter by date - only show current and upcoming events
     const now = new Date();
-    filtered = filtered.filter(event => {
-      if (!event.eventDate) return false;
-      const eventDate = new Date(event.eventDate);
-      return eventDate >= now;
-    });
+
+    // Filter by date based on selected filter
+    if (dateFilter === 'upcoming') {
+      filtered = filtered.filter(event => {
+        if (!event.eventDate) return false;
+        const eventDate = new Date(event.eventDate);
+        return eventDate >= now;
+      });
+    } else if (dateFilter === 'past') {
+      filtered = filtered.filter(event => {
+        if (!event.eventDate) return false;
+        const eventDate = new Date(event.eventDate);
+        return eventDate < now;
+      });
+    }
+    // if 'all', no date filtering
 
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(event => event.eventCategory === selectedCategory);
@@ -109,7 +120,7 @@ export default function EventsPage() {
 
         {/* Search and Filter */}
         <div className="max-w-5xl mx-auto mb-12">
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-text" />
               <Input
@@ -120,7 +131,29 @@ export default function EventsPage() {
                 className="pl-12 bg-card-background border-accent-cyan/20 text-foreground placeholder:text-muted-text font-paragraph h-14 rounded-xl"
               />
             </div>
+            
+            {/* Date Filter */}
             <div className="flex gap-2 overflow-x-auto pb-2">
+              <span className="text-muted-text font-paragraph text-sm self-center whitespace-nowrap mr-2">Filter by date:</span>
+              {dateFilters.map((filter) => (
+                <Button
+                  key={filter}
+                  onClick={() => setDateFilter(filter)}
+                  variant={dateFilter === filter ? 'default' : 'outline'}
+                  className={`whitespace-nowrap font-paragraph rounded-xl capitalize ${
+                    dateFilter === filter
+                      ? 'bg-accent-purple text-secondary-foreground hover:bg-accent-purple/90'
+                      : 'border-accent-purple/30 text-muted-text hover:text-accent-purple hover:border-accent-purple'
+                  }`}
+                >
+                  {filter}
+                </Button>
+              ))}
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex gap-2 overflow-x-auto pb-2">
+              <span className="text-muted-text font-paragraph text-sm self-center whitespace-nowrap mr-2">Category:</span>
               {categories.map((category) => (
                 <Button
                   key={category}

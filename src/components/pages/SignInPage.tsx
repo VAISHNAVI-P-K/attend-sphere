@@ -22,7 +22,14 @@ export default function SignInPage() {
     setIsLoading(true);
 
     try {
-      // Use Wix authentication
+      // Validate form
+      if (!email || !password) {
+        setError('Please fill in all fields');
+        setIsLoading(false);
+        return;
+      }
+
+      // Use Wix authentication - this will redirect to auth and come back
       await actions.login();
     } catch (err) {
       setError('Failed to sign in. Please try again.');

@@ -2,6 +2,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useMember } from '@/integrations';
 import { 
   Calendar, Users, BarChart3, Shield, Globe, TrendingUp, 
   Activity, Zap, Database, Cpu, Network, AlertTriangle, 
@@ -36,6 +37,7 @@ const networkStatus = [
 
 export default function HomePage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { isAuthenticated } = useMember();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -119,19 +121,39 @@ export default function HomePage() {
                 </p>
                 
                 <div className="flex flex-wrap gap-6">
-                  <Link to="/register">
-                    <Button className="group relative overflow-hidden bg-accent-cyan text-primary-foreground hover:bg-accent-cyan/90 font-heading font-bold px-10 py-7 text-lg rounded-none clip-hex transition-all duration-300 hover:scale-105">
-                      <span className="relative z-10 flex items-center gap-2">
-                        Initialize Core <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
-                    </Button>
-                  </Link>
-                  <Link to="/events">
-                    <Button variant="outline" className="bg-transparent border-2 border-accent-purple/50 text-foreground hover:bg-accent-purple/10 hover:border-accent-purple font-heading font-bold px-10 py-7 text-lg rounded-none clip-hex transition-all duration-300">
-                      View Data Clusters
-                    </Button>
-                  </Link>
+                  {!isAuthenticated ? (
+                    <>
+                      <Link to="/register">
+                        <Button className="group relative overflow-hidden bg-accent-cyan text-primary-foreground hover:bg-accent-cyan/90 font-heading font-bold px-10 py-7 text-lg rounded-none clip-hex transition-all duration-300 hover:scale-105">
+                          <span className="relative z-10 flex items-center gap-2">
+                            Initialize Core <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                          </span>
+                          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                        </Button>
+                      </Link>
+                      <Link to="/events">
+                        <Button variant="outline" className="bg-transparent border-2 border-accent-purple/50 text-foreground hover:bg-accent-purple/10 hover:border-accent-purple font-heading font-bold px-10 py-7 text-lg rounded-none clip-hex transition-all duration-300">
+                          View Data Clusters
+                        </Button>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/dashboard">
+                        <Button className="group relative overflow-hidden bg-accent-cyan text-primary-foreground hover:bg-accent-cyan/90 font-heading font-bold px-10 py-7 text-lg rounded-none clip-hex transition-all duration-300 hover:scale-105">
+                          <span className="relative z-10 flex items-center gap-2">
+                            Go to Dashboard <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                          </span>
+                          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                        </Button>
+                      </Link>
+                      <Link to="/events">
+                        <Button variant="outline" className="bg-transparent border-2 border-accent-purple/50 text-foreground hover:bg-accent-purple/10 hover:border-accent-purple font-heading font-bold px-10 py-7 text-lg rounded-none clip-hex transition-all duration-300">
+                          Browse Events
+                        </Button>
+                      </Link>
+                    </>
+                  )}
                 </div>
               </motion.div>
             </div>

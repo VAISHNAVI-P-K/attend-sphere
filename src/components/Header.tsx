@@ -11,15 +11,20 @@ export default function Header() {
   const location = useLocation();
   const { member, isAuthenticated, isLoading, actions } = useMember();
 
-  const navLinks = [
+  const publicNavLinks = [
     { path: '/', label: 'Home' },
     { path: '/events', label: 'Events' },
+    { path: '/contact', label: 'Contact' },
+  ];
+
+  const protectedNavLinks = [
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/mark-attendance', label: 'Mark Attendance' },
     { path: '/analytics', label: 'Analytics' },
     { path: '/system-performance', label: 'Performance' },
-    { path: '/contact', label: 'Contact' },
   ];
+
+  const navLinks = isAuthenticated ? [...publicNavLinks, ...protectedNavLinks] : publicNavLinks;
 
   const isActive = (path: string) => location.pathname === path;
 

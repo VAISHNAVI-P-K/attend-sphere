@@ -60,7 +60,7 @@ export default function RegisterPage() {
     try {
       // Use Wix authentication for registration
       // This will redirect to auth and come back
-      await actions.login();
+      actions.login();
     } catch (err) {
       setError('Failed to register. Please try again.');
       setIsLoading(false);

@@ -30,7 +30,7 @@ export default function SignInPage() {
       }
 
       // Use Wix authentication - this will redirect to auth and come back
-      await actions.login();
+      actions.login();
     } catch (err) {
       setError('Failed to sign in. Please try again.');
       setIsLoading(false);

@@ -131,8 +131,13 @@ export default function HomePage() {
                           <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
                         </Button>
                       </Link>
-                      <Link to="/events">
+                      <Link to="/demo-dashboard">
                         <Button variant="outline" className="bg-transparent border-2 border-accent-purple/50 text-foreground hover:bg-accent-purple/10 hover:border-accent-purple font-heading font-bold px-10 py-7 text-lg rounded-none clip-hex transition-all duration-300">
+                          View Demo Dashboard
+                        </Button>
+                      </Link>
+                      <Link to="/events">
+                        <Button variant="outline" className="bg-transparent border-2 border-accent-magenta/50 text-foreground hover:bg-accent-magenta/10 hover:border-accent-magenta font-heading font-bold px-10 py-7 text-lg rounded-none clip-hex transition-all duration-300">
                           View Data Clusters
                         </Button>
                       </Link>

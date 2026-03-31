@@ -7,6 +7,7 @@ import HomePage from '@/components/pages/HomePage';
 import EventsPage from '@/components/pages/EventsPage';
 import EventDetailPage from '@/components/pages/EventDetailPage';
 import DashboardPage from '@/components/pages/DashboardPage';
+import DemoDashboardPage from '@/components/pages/DemoDashboardPage';
 import ContactPage from '@/components/pages/ContactPage';
 import ProfilePage from '@/components/pages/ProfilePage';
 import MarkAttendancePage from '@/components/pages/MarkAttendancePage';
@@ -62,6 +63,13 @@ const router = createBrowserRouter([
         ),
         routeMetadata: {
           pageIdentifier: 'dashboard',
+        },
+      },
+      {
+        path: "demo-dashboard",
+        element: <DemoDashboardPage />,
+        routeMetadata: {
+          pageIdentifier: 'demo-dashboard',
         },
       },
       {

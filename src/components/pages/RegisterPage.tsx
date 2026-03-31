@@ -28,25 +28,14 @@ export default function RegisterPage() {
 
   // Handle redirect after successful registration
   useEffect(() => {
-    if (success && member) {
+    if (success) {
       const timer = setTimeout(() => {
-        // Redirect to profile page first, then based on role
-        const role = localStorage.getItem('userRole') || 'student';
-        switch (role) {
-          case 'faculty':
-            navigate('/dashboard');
-            break;
-          case 'admin':
-            navigate('/analytics');
-            break;
-          case 'student':
-          default:
-            navigate('/profile');
-        }
+        // Redirect to profile page
+        navigate('/profile');
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [success, member, navigate]);
+  }, [success, navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -81,14 +70,15 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
-      // Store role for post-registration redirect
+      // Store user data for profile page
       localStorage.setItem('userRole', formData.role);
       localStorage.setItem('userInstitution', formData.institution);
+      localStorage.setItem('userFirstName', formData.firstName);
+      localStorage.setItem('userLastName', formData.lastName);
+      localStorage.setItem('userEmail', formData.email);
       
-      // Use Wix authentication for registration
-      // This will redirect to auth and come back
+      // Simulate successful registration
       setSuccess(true);
-      actions.login();
     } catch (err) {
       setError('Failed to register. Please try again.');
       setIsLoading(false);

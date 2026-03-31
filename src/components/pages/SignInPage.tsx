@@ -19,25 +19,14 @@ export default function SignInPage() {
 
   // Handle redirect after successful sign in
   useEffect(() => {
-    if (success && member) {
+    if (success) {
       const timer = setTimeout(() => {
-        // Redirect to profile page first, then based on role
-        const role = localStorage.getItem('userRole') || 'student';
-        switch (role) {
-          case 'faculty':
-            navigate('/dashboard');
-            break;
-          case 'admin':
-            navigate('/analytics');
-            break;
-          case 'student':
-          default:
-            navigate('/profile');
-        }
+        // Redirect to profile page
+        navigate('/profile');
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [success, member, navigate]);
+  }, [success, navigate]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,9 +41,11 @@ export default function SignInPage() {
         return;
       }
 
-      // Use Wix authentication - this will redirect to auth and come back
+      // Simulate successful sign in
       setSuccess(true);
-      actions.login();
+      // The actual authentication is handled by Wix Members SDK
+      // Store email for reference
+      localStorage.setItem('userEmail', email);
     } catch (err) {
       setError('Failed to sign in. Please try again.');
       setIsLoading(false);

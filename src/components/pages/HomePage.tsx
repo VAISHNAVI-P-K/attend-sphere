@@ -612,28 +612,37 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuresData.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group bg-card-background border border-white/5 hover:border-accent-cyan/30 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
-              >
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-${feature.color}/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-${feature.color}/10 transition-colors`} />
-                
-                <div className={`w-14 h-14 rounded-2xl bg-${feature.color}/10 flex items-center justify-center mb-6 border border-${feature.color}/20`}>
-                  <feature.icon className={`w-7 h-7 text-${feature.color}`} />
-                </div>
-                <h4 className="font-heading text-2xl font-bold text-foreground mb-3">
-                  {feature.title}
-                </h4>
-                <p className="font-paragraph text-muted-text leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
+            {featuresData.map((feature, index) => {
+              const colorMap: Record<string, { bg: string; bgHover: string; border: string; text: string; bgLight: string }> = {
+                'accent-cyan': { bg: 'bg-accent-cyan/10', bgHover: 'group-hover:bg-accent-cyan/20', border: 'border-accent-cyan/20', text: 'text-accent-cyan', bgLight: 'bg-accent-cyan/5' },
+                'accent-purple': { bg: 'bg-accent-purple/10', bgHover: 'group-hover:bg-accent-purple/20', border: 'border-accent-purple/20', text: 'text-accent-purple', bgLight: 'bg-accent-purple/5' },
+                'accent-magenta': { bg: 'bg-accent-magenta/10', bgHover: 'group-hover:bg-accent-magenta/20', border: 'border-accent-magenta/20', text: 'text-accent-magenta', bgLight: 'bg-accent-magenta/5' }
+              };
+              const colors = colorMap[feature.color] || colorMap['accent-cyan'];
+              
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group bg-card-background border border-white/5 hover:border-accent-cyan/30 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
+                >
+                  <div className={`absolute top-0 right-0 w-32 h-32 ${colors.bgLight} rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 ${colors.bgHover} transition-colors`} />
+                  
+                  <div className={`w-14 h-14 rounded-2xl ${colors.bg} flex items-center justify-center mb-6 border ${colors.border}`}>
+                    <feature.icon className={`w-7 h-7 ${colors.text}`} />
+                  </div>
+                  <h4 className="font-heading text-2xl font-bold text-foreground mb-3">
+                    {feature.title}
+                  </h4>
+                  <p className="font-paragraph text-muted-text leading-relaxed">
+                    {feature.description}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

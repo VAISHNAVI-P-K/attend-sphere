@@ -21,7 +21,7 @@ export default function SignInPage() {
   useEffect(() => {
     if (success && member) {
       const timer = setTimeout(() => {
-        // Redirect based on role stored during registration
+        // Redirect to profile page first, then based on role
         const role = localStorage.getItem('userRole') || 'student';
         switch (role) {
           case 'faculty':
@@ -32,7 +32,7 @@ export default function SignInPage() {
             break;
           case 'student':
           default:
-            navigate('/events');
+            navigate('/profile');
         }
       }, 2000);
       return () => clearTimeout(timer);

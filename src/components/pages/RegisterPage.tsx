@@ -70,15 +70,15 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
-      // Store user data for profile page
+      // Use Wix Members SDK to register - this redirects to Wix registration
+      actions.login();
+      
+      // Store additional user data
       localStorage.setItem('userRole', formData.role);
       localStorage.setItem('userInstitution', formData.institution);
       localStorage.setItem('userFirstName', formData.firstName);
       localStorage.setItem('userLastName', formData.lastName);
       localStorage.setItem('userEmail', formData.email);
-      
-      // Simulate successful registration
-      setSuccess(true);
     } catch (err) {
       setError('Failed to register. Please try again.');
       setIsLoading(false);

@@ -1,147 +1,165 @@
-# Wixstro - Wix Astro Template
-
-A modern, full-featured Wix Astro template built with React, TypeScript, and Tailwind CSS. This template provides a solid foundation for building dynamic, interactive websites with Wix's powerful ecosystem.
-
-## 🚀 Features
-
-- **Astro Framework** - Modern static site generator with server-side rendering
-- **React Integration** - Full React support with JSX components
-- **TypeScript** - Type-safe development experience
-- **Tailwind CSS** - Utility-first CSS framework with custom components
-- **Wix Integration** - Seamless integration with Wix services and APIs
-- **Modern UI Components** - Radix UI components with custom styling
-- **Authentication** - Built-in member authentication and protected routes
-- **CMS Integration** - Content management system integration
-- **Client-side Routing** - React Router for seamless navigation
-- **Responsive Design** - Mobile-first responsive design
-- **Testing** - Vitest testing framework setup
-- **Development Tools** - ESLint, TypeScript checking, and more
-
-## 🛠️ Tech Stack
-
-- **Framework**: Astro 5.8.0
-- **Frontend**: React 18.3.0
-- **Styling**: Tailwind CSS 3.4.14
-- **Language**: TypeScript 5.8.3
-- **UI Components**: Radix UI
-- **State Management**: Zustand
-- **Forms**: React Hook Form with Zod validation
-- **Testing**: Vitest
-- **Build Tool**: Vite
-- **Deployment**: Cloudflare
+# AttendSphere – Smart Attendance Management Platform
 
 
-## 🚀 Getting Started
+## Project Overview
 
-### Prerequisites
+**AttendSphere** is a modern web-based attendance management platform designed to simplify and automate attendance tracking for educational institutions and organizations. The platform allows users to securely mark attendance, manage records, and generate insightful reports through an intuitive and responsive interface.
 
-- Node.js (version 18 or higher)
-- npm or yarn package manager
-- Wix account and site
-
-### Installation
-
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Set up environment variables**:
-   ```bash
-   npm run env
-   ```
-
-3. **Start development server**:
-   ```bash
-   npm run dev
-   ```
-
-The development server will start and you can view your site at `http://localhost:4321`.
-
-## 📁 Project Structure
-
-```
-main/
-├── src/
-│   ├── components/          # React components
-│   │   ├── ui/             # Reusable UI components
-│   │   ├── Head.tsx        # Page head component
-│   │   └── Router.tsx      # Routing component
-│   ├── hooks/              # Custom React hooks
-│   ├── lib/                # Utility functions
-│   ├── pages/              # Astro pages
-│   └── styles/             # Global styles
-├── integrations/           # Wix integrations
-│   ├── cms/               # CMS integration
-│   └── members/           # Member authentication
-├── public/                # Static assets
-└── eslint-rules/          # Custom ESLint rules
-```
-
-## 🎨 UI Components
-
-This template includes a comprehensive set of UI components built with Radix UI and styled with Tailwind CSS:
-
-- **Layout**: Accordion, Collapsible, Tabs, Sheet
-- **Forms**: Input, Select, Checkbox, Radio Group, Switch
-- **Navigation**: Navigation Menu, Menubar, Breadcrumb
-- **Feedback**: Alert, Toast, Progress, Skeleton
-- **Overlays**: Dialog, Popover, Tooltip, Hover Card
-- **Data Display**: Table, Card, Badge, Avatar
-- **Interactive**: Button, Toggle, Slider, Command
-
-## 🔧 Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run release` - Release to Wix
-- `npm run env` - Pull environment variables
-- `npm run check` - Type check with Astro
-- `npm run test:run` - Run tests
-- `npm install` - Install dependencies
-
-## 🧪 Testing
-
-The project includes Vitest for testing:
-
-```bash
-npm run test:run
-```
-
-## 📱 Responsive Design
-
-The template is built with a mobile-first approach and includes:
-
-- Responsive breakpoints
-- Touch-friendly interactions
-- Optimized images
-- Flexible layouts
-
-## 🚀 Deployment
-
-The template is configured for deployment on Cloudflare:
-
-```bash
-npm run build
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
-
-## 🆘 Support
-
-For support and questions:
-
-- Check the [Wix Developer Documentation](https://dev.wix.com/)
-- Review the [Astro Documentation](https://docs.astro.build/)
-
+AttendSphere eliminates the inefficiencies of traditional attendance methods by providing a centralized digital system that improves accuracy, transparency, and accessibility.
 
 ---
 
-Built with ❤️ using Wix Vibe, Astro, and modern web technologies.
+## Key Features
+
+- **Secure User Authentication**
+  - Role-based login system for administrators, faculty, and students.
+
+- **Smart Attendance Marking**
+  - Quick and efficient attendance entry for classes or sessions.
+
+- **Attendance Dashboard**
+  - Visual overview of attendance statistics and performance.
+
+- **Automated Attendance Reports**
+  - Generate downloadable reports for analysis and record keeping.
+
+- **Real-Time Attendance Tracking**
+  - Instantly monitor attendance updates and trends.
+
+- **Responsive Web Interface**
+  - Fully optimized for desktop and mobile devices.
+
+- **Centralized Data Management**
+  - All attendance records are securely stored and easily accessible.
+
+---
+
+## Project Objectives
+
+The primary objectives of **AttendSphere** are:
+
+- To digitize the attendance tracking process.
+- To reduce manual errors in attendance recording.
+- To provide real-time attendance insights.
+- To improve administrative efficiency in institutions.
+
+---
+
+## Target Users
+
+- Educational Institutions
+- Universities and Colleges
+- Training Centers
+- Corporate Training Programs
+- Event Attendance Management
+
+---
+
+## Technology Stack
+
+The platform can be built using modern web technologies such as:
+
+- **Frontend**
+  - HTML5
+  - CSS3
+  - JavaScript
+  - React / Next.js
+
+- **Backend**
+  - Node.js / Express.js
+
+- **Database**
+  - MongoDB / Firebase / PostgreSQL
+
+- **Authentication**
+  - JWT / OAuth-based authentication
+
+- **Deployment**
+  - Vercel / Netlify / Cloud Hosting
+
+---
+
+## System Workflow
+
+1. Users log into the platform through a secure authentication system.
+2. Administrators or faculty create and manage class sessions.
+3. Students mark attendance or instructors record attendance.
+4. The system stores attendance records in the database.
+5. Dashboards and reports visualize attendance statistics.
+
+---
+
+## Benefits of AttendSphere
+
+- Reduces paperwork and manual attendance registers
+- Improves attendance monitoring accuracy
+- Provides quick access to attendance records
+- Enhances transparency between students and administrators
+- Saves time for educators and management
+
+---
+
+## Future Enhancements
+
+Potential improvements for future versions include:
+
+- QR Code-based attendance
+- Face recognition attendance system
+- Mobile application support
+- AI-based attendance analytics
+- Integration with Learning Management Systems (LMS)
+
+---
+
+## Installation and Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/attendsphere.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd attendsphere
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+npm start
+```
+
+---
+
+## Project Structure
+
+```
+attendsphere/
+│
+├── frontend/           # UI components and pages
+├── backend/            # Server-side logic and APIs
+├── database/           # Database configuration
+├── public/             # Static assets
+├── docs/               # Documentation
+└── README.md
+```
+
+---
+
+## Use Case Example
+
+A university instructor can log into **AttendSphere**, create a class session, and quickly record student attendance. The system instantly updates attendance statistics and allows administrators to generate reports showing attendance percentages and trends across semesters.
+
+
+## Author
+
+**Project Name:** AttendSphere  
+**Category:** Web Application – Smart Attendance Management System
